@@ -51,4 +51,11 @@ def home():
     return render_template("index.html")
 
 if __name__ == "__main__":
+    # initialize database with data from CSV before starting the server
+    init_db()
+    csv_file_path = '5_6th_gen_data.csv'
+    db_path = 'funding_database.db'
+    import_csv_to_db(csv_file_path, db_path)
+
+
     app.run(debug=True)
