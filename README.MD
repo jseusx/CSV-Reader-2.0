@@ -6,3 +6,6 @@
 ![SQLite](https://img.shields.io/badge/Sqlite-003B57?style=for-the-badge&logo=sqlite&logoColor=white)
 ![Flask](https://img.shields.io/badge/Flask-000000?style=for-the-badge&logo=flask&logoColor=white)
 
+### TODO:
+- Possible implementation of Docker
+- CSS Changes/Additions
