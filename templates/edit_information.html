@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Funding Information</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Review and Edit Funding Information</h1>
+        <form method="POST" action="/edit_information">
+            <label for="serial_number">Serial Number:</label><br>
+            <input type="text" name="serial_number" value="{{ serial_number }}" required><br>
+
+            <label for="order_number">Order Number:</label><br>
+            <input type="text" name="order_number" value="{{ order_number }}" required><br>
+
+            <label for="model">Model:</label><br>
+            <input type="text" name="model" value="{{ model }}" required><br>
+
+            <label for="funding_source">Funding Source:</label><br>
+            <input type="text" name="funding_source" value="{{ funding_source }}" required><br><br>
+
+            <button type="submit">Confirm and Submit</button>
+        </form>
+    </div>
+</body>
+</html>
