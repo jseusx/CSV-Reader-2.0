@@ -3,19 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CSV Reader 2.0</title>
+    <title>Add Funding Information</title>
 
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
     <div class="container">
-        <h1>Enter Serial Number:</h1>
-        <form method="POST" action="/submit">
-            <input type="text" name="serial_number" placeholder="Enter Serial Number" required />
+        <h1>Enter Funding Information for Serial Number {{ serial_number }}</h1>
+        <form method="POST" action="">
+            <label for="order_number">Order Number: {{ order_number }}</label><br>
+            <input type="text" name="funding_source" placeholder="Enter Funding Source" required />
             <br />
             <button type="submit">Submit</button>
         </form>
     </div>
 </body>
-
 </html>
