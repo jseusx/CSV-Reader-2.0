@@ -8,8 +8,16 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
+    <div class="logo-container">
+        <img src="{{ url_for('static', filename='PCS_Logo_Card.png') }}" alt="Logo">
+    </div>
+
     <div class="container">
-        <h1>Enter Order Number for Serial Number {{ serial_number }}:</h1>
+        <div class="home-button">
+            <a href="{{ url_for('home') }}">Home</a>
+        </div>
+
+        <h1>Enter Order Number for Serial Number '{{ serial_number }}':</h1>
         <form method="POST" action="/order_number">
             <input type="hidden" name="serial_number" value="{{ serial_number }}">
             <input type="text" name="order_number" placeholder="Enter Order Number" required />

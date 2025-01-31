@@ -4,16 +4,16 @@ import sqlite3
 import csv
 
 app = Flask(__name__)
-
 app.secret_key = os.urandom(24)  # Generates a random key
+
+DB_PATH = "funding_database.db"
 
 def init_db():
     with sqlite3.connect('funding_database.db') as conn:
         cursor = conn.cursor()
         cursor.execute('''
             CREATE TABLE IF NOT EXISTS funding_source (
-                       id INTEGER PRIMARY KEY AUTOINCREMENT,
-                       serial_number TEXT NOT NULL,
+                       serial_number TEXT PRIMARY KEY NOT NULL,
                        model TEXT NOT NULL,
                        order_number TEXT,
                        funding_source TEXT
@@ -22,9 +22,9 @@ def init_db():
         conn.commit()
 
 # initial reading of csv file 
-def import_csv_to_db(csv_file_path,db_path):
+def import_csv_to_db(csv_file_path):
     # connect to db
-    conn = sqlite3.connect(db_path)
+    conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
 
     # open csv file
@@ -34,7 +34,7 @@ def import_csv_to_db(csv_file_path,db_path):
         for row in csv_reader:
             # insert data into database
             cursor.execute('''
-                INSERT INTO funding_source (serial_number, model, order_number, funding_source)
+                INSERT OR IGNORE INTO funding_source (serial_number, model, order_number, funding_source)
                 values (?, ?, ?, ?)
                 ''', (row['S/N'], row['model'], row['order_number'], row['funding']))
             
@@ -84,8 +84,8 @@ def order_number():
     return render_template("submitted.html", serial_number=serial_number)
 
 # checks db for funding information and returns it.
-def get_funding_source(order_number, db_path='funding_database.db'):
-    conn = sqlite3.connect(db_path)
+def get_funding_source(order_number):
+    conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
     cursor.execute('''
         SELECT funding_source FROM funding_source
@@ -164,8 +164,8 @@ def write_to_csv(serial_number, model, order_number, funding_source, file_path='
         csv_writer.writerow([serial_number, model, order_number, funding_source])
 
 # inserts new values into db
-def update_db(serial_number, model, order_number, funding_soruce, file_path='funding_database.db'):
-    conn = sqlite3.connect(db_path)
+def update_db(serial_number, model, order_number, funding_soruce):
+    conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
     cursor.execute('''
         INSERT INTO funding_source (serial_number, model, order_number, funding_source)
@@ -174,12 +174,37 @@ def update_db(serial_number, model, order_number, funding_soruce, file_path='fun
     conn.commit()
     conn.close()
 
+@app.route("/upload_csv", methods=["POST"])
+def upload_csv():
+        if "csv_file" not in request.files:
+            flash("No file part", "error")
+            return redirect(url_for("home"))
+        
+        file = request.files["csv_file"]
+
+        if file.filename == "":
+            flash("No selected file", "error")
+            return redirect(url_for("home"))
+        
+        if file and file.filename.endswith(".csv"):     
+            file_path = f"./uploads/{file.filename}"  # Save uploaded file
+            file.save(file_path)  
+
+            import_csv_to_db(file_path)
+
+            flash("CSV data uploaded and database updated!", "success")
+
+            return redirect(url_for("home"))
+        
+        flash("Invalid file format. Please upload a CSV file.", "danger")
+        return redirect(url_for("home"))
+
+
+        
+
+
 if __name__ == "__main__":
     # initialize database with data from CSV before starting the server
     init_db()
-    csv_file_path = '5_6th_gen_data.csv'
-    db_path = 'funding_database.db'
-    import_csv_to_db(csv_file_path, db_path)
-
 
     app.run(debug=True)

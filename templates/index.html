@@ -8,7 +8,16 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
+    <div class="logo-container">
+        <img src="{{ url_for('static', filename='PCS_Logo_Card.png') }}" alt="Logo">
+    </div>
+
+
     <div class="container">
+        <div class="home-button">
+            <a href="{{ url_for('home') }}">Home</a>
+        </div>
+
         <!-- Display Flash Messages -->
         {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
@@ -25,6 +34,13 @@
             <input type="text" name="serial_number" placeholder="Enter Serial Number" required />
             <br />
             <button type="submit">Submit</button>
+        </form>
+
+        <!-- Form for uploading CSV -->
+        <form method="POST" action="/upload_csv" enctype="multipart/form-data">
+            <input type="file" name="csv_file" accept=".csv" required />
+            <br />
+            <button type="submit">Open CSV</button>
         </form>
     </div>
 </body>
