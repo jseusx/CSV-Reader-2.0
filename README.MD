@@ -6,6 +6,17 @@
 ![SQLite](https://img.shields.io/badge/Sqlite-003B57?style=for-the-badge&logo=sqlite&logoColor=white)
 ![Flask](https://img.shields.io/badge/Flask-000000?style=for-the-badge&logo=flask&logoColor=white)
 
+## What is CSV Reader 2.0?
+A webpage that allows for easier scanning, storage, and exportation of iPad information using data stored in a local database.
+
+## Installation
+
+## Usage 
+
+### Preview
+
+![index](readme_pictures\index_page.png)
+
 ### TODO:
 - Possible implementation of Docker
 - Show how much data is read when CSV is imported
