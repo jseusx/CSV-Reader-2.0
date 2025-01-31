@@ -8,4 +8,4 @@
 
 ### TODO:
 - Possible implementation of Docker
-- CSS Changes/Additions
+- Show how much data is read when CSV is imported
