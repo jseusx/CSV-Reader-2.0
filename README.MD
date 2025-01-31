@@ -15,7 +15,7 @@ A webpage that allows for easier scanning, storage, and exportation of iPad info
 
 ### Preview
 
-![index](readme_pictures\index_page.png)
+![index](readme_pictures/index_page.png)
 
 ### TODO:
 - Possible implementation of Docker
