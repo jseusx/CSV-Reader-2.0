@@ -47,6 +47,9 @@ Last page seen before submitting
 ![edit page](readme_pictures/edit_page.png)
 ![success page](readme_pictures/success_page.png)
 
+This is what viewing your db would look like:
+![viewing db](readme_pictures/viewing_db.png)
+
 ### TODO:
 - Possible implementation of Docker
 - Show how much data is read when CSV is imported
